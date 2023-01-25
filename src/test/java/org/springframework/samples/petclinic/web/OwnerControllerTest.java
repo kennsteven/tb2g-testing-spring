@@ -28,6 +28,7 @@ import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -63,7 +64,14 @@ class OwnerControllerTest {
     }
 
     @Test
-    void newOwnerTest() {
+    void newOwnerTest() throws Exception {
+        mockMvc.perform(post("/owners/new")
+                        .param("firstName", "Jimmy")
+                        .param("lastName", "Buffet")
+                        .param("address", "123 Dual st")
+                        .param("city", "Key west")
+                        .param("telephone", "1234567890"))
+                .andExpect(status().is3xxRedirection());
     }
 
     @Test
